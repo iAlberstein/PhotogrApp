@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { NestModule, MiddlewareConsumer } from '@nestjs/common';
 import Middleware from './middleware/middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ProductsModule } from './products/products.module';
+import { CartsModule } from './carts/carts.module';
 
 @Module({
   imports: [UsersModule, ConfigModule.forRoot(), MongooseModule.forRootAsync({
@@ -14,7 +16,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     useFactory: async (config:ConfigService) =>  ({
       uri: config.get<string>("MONGO_URL"),
     })
-  })],
+  }), ProductsModule, CartsModule],
   controllers: [AppController],
   providers: [AppService],
 })
