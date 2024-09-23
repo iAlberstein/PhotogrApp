@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CartsService } from './carts.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { CreateCartProductDto } from './dto/create-cart-product.dto';
 
 import { ConfigService } from '@nestjs/config';
 
@@ -27,6 +28,14 @@ export class CartsController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
     return this.cartsService.update(id, updateCartDto);
+  }
+
+  @Post(':id/products')
+  addProductToCart(
+    @Param('id') cartId: string, 
+    @Body() createCartProductDto: CreateCartProductDto
+  ) {
+    return this.cartsService.addProductToCart(cartId, createCartProductDto);
   }
 
   @Delete(':id')
